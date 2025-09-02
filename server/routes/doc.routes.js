@@ -107,13 +107,13 @@ router.get('/:id', auth, async (req,res)=> {
       if (tags !== undefined) doc.tags = tags;
   
       // versioning
-      const newVersion = (doc.versions.at(-1)?.version || 0) + 1;
-      const summary = content ? await summarizeText(content).catch(()=>doc.summary) : doc.summary;
+      // const newVersion = (doc.versions.at(-1)?.version || 0) + 1;
+      const summary = content ? "" : doc.summary;
       const embedding = (content || title) ? await embedText(`${doc.title}\n\n${doc.content}`).catch(()=>doc.embedding) : doc.embedding;
   
       doc.summary = summary;
       doc.embedding = embedding;
-      doc.versions.push({ version: newVersion, title: doc.title, content: doc.content, summary: doc.summary, tags: doc.tags, updatedBy: req.user.id });
+      // doc.versions.push({ version: newVersion, title: doc.title, content: doc.content, summary: doc.summary, tags: doc.tags, updatedBy: req.user.id });
       await doc.save();
       res.json(doc);
     } catch (err) {

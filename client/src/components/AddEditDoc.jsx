@@ -27,7 +27,7 @@ export default function AddEditDoc() {
       tags: form.tags.split(',').map(s => s.trim()).filter(Boolean)
     };
     if (id) await api.patch(`/docs/${id}`, payload);
-    else await api.post('/docs', payload);
+    else await api.post('/docs/create', payload);
     nav('/');
   }
 
